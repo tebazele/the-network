@@ -19,7 +19,7 @@
                     class="mdi mdi-heart text-danger selectable"></i>
             </h1>
             <h1 v-else @click="likeOrUnlike(post.id)"><i class="mdi mdi-heart-outline text-danger selectable"></i></h1>
-            <p>This post has {{ likeCount }} like(s)!</p>
+            <p>This post has {{ state.likeCount }} like(s)!</p>
 
         </div>
     </section>
@@ -51,7 +51,8 @@ export default {
     props: { post: { type: Post, required: true } },
     setup(props) {
         const state = reactive({
-            liked: false
+            liked: false,
+            likeCount: props.post.likeIds.length
         })
         // watchEffect(() => {
         //     if (AppState.account.id) {
@@ -69,7 +70,6 @@ export default {
 
         return {
             state,
-            likeCount: computed(() => props.post.likeIds.length),
             account: computed(() => AppState.account),
             async likeOrUnlike(id) {
                 try {
@@ -77,6 +77,12 @@ export default {
                     await postsService.likeOrUnlike(id)
                     logger.log(props.post.likeIds)
                     state.liked = !state.liked
+                    if (state.liked) {
+                        state.likeCount++
+                    } else {
+                        state.likeCount--
+                    }
+
                 } catch (error) {
                     logger.log(error)
                     Pop.error(error)

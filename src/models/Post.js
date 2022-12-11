@@ -8,6 +8,7 @@ export class Post {
         this.creatorId = data.creatorId
         this.creator = data.creator
         this.likeIds = data.likeIds
+        this.likeCount = this.likeIds.length
         this.likedByAccount = false
     }
 
