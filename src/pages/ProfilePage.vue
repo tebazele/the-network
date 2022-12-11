@@ -55,6 +55,27 @@
         </div>
 
     </section>
+    <section class="row justify-content-between">
+        <div class="col-2">
+            <button v-if="currPage > 1" class="btn btn-success" @click="changePage(currPage - 1)">
+                Previous
+            </button>
+            <button v-else class="btn btn-success" disabled>
+                Previous
+            </button>
+        </div>
+        <div class="col-3">
+            <p>{{ currPage }}/{{ maxPage }}</p>
+        </div>
+        <div class="col-1 text-end">
+            <button v-if="currPage < maxPage" class="btn btn-success" @click="changePage(currPage + 1)">
+                Next
+            </button>
+            <button v-else class="btn btn-success" disabled>
+                Next
+            </button>
+        </div>
+    </section>
 </template>
 
 
@@ -100,7 +121,17 @@ export default {
             coverImg: computed(() => `url(${AppState.activeProfile.coverImg})`),
             profile: computed(() => AppState.activeProfile),
             account: computed(() => AppState.account),
-            posts: computed(() => AppState.posts)
+            posts: computed(() => AppState.posts),
+            currPage: computed(() => AppState.page),
+            maxPage: computed(() => AppState.maxPage > 10 ? 10 : AppState.maxPage),
+            async changePage(number) {
+                try {
+                    await postsService.changePage(number, route.params.id)
+                } catch (error) {
+                    logger.log(error)
+                    Pop.error(error)
+                }
+            }
         };
     },
     components: { CreatePost, PostComponent, ProfileCard }

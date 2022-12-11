@@ -37,7 +37,7 @@ export default {
             async goToProfile() {
                 try {
                     logger.log(props.profile._id)
-                    debugger
+
                     await profilesService.getProfileById(props.profile._id)
                     router.replace({ path: `/profile/${props.profile._id}` })
                 } catch (error) {

@@ -37,6 +37,10 @@ class PostsService {
         logger.log('got posts by this person', res.data)
         AppState.posts = res.data.posts.map(p => new Post(p))
 
+        let pageArr = res.data.page.split(' ')
+        // logger.log(pageArr)
+        AppState.page = parseInt(pageArr[0])
+        AppState.maxPage = parseInt(pageArr[2])
     }
 
     async likeOrUnlike(id) {
@@ -53,11 +57,23 @@ class PostsService {
         AppState.posts = AppState.posts.filter(p => p.id != id)
     }
 
-    async changePage(num) {
-        logger.log(num)
-        const res = await api.get('/api/posts?page=' + num)
-        AppState.posts = res.data.posts.map(p => new Post(p))
-        AppState.page = num
+    async changePage(num, id = '') {
+        if (!id) {
+            logger.log(num)
+            const res = await api.get('/api/posts', { params: { page: num } })
+            AppState.posts = res.data.posts.map(p => new Post(p))
+            AppState.page = num
+        } else {
+            const res = await api.get('/api/posts', {
+                params: {
+                    creatorId: id,
+                    page: num
+                }
+            })
+
+            AppState.posts = res.data.posts.map(p => new Post(p))
+            AppState.page = num
+        }
 
     }
 }
