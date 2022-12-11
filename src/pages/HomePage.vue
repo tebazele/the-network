@@ -26,14 +26,20 @@
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { postsService } from '../services/PostsService.js'
-import { onMounted, computed, ref, reactive } from 'vue';
+import { onMounted, computed, ref, reactive, watchEffect } from 'vue';
 import { AppState } from '../AppState.js';
 import PostComponent from '../components/PostComponent.vue';
 import CreatePost from '../components/CreatePost.vue';
 import Banner from '../components/Banner.vue';
 
 export default {
+
   setup() {
+    watchEffect(() => {
+      if (AppState.account.id) {
+        getPosts()
+      }
+    })
     async function getPosts() {
       try {
         await postsService.getPosts()
@@ -43,9 +49,11 @@ export default {
       }
     }
 
-    onMounted(() => {
-      getPosts()
-    })
+    // onMounted(() => {
+    //   setTimeout(() => {
+    //     getPosts()
+    //   }, 1000);
+    // })
     return {
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account)

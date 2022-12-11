@@ -10,6 +10,9 @@ class PostsService {
         logger.log('got posts', res.data)
         AppState.posts = res.data.posts.map(p => new Post(p))
         AppState.posts.forEach(p => {
+            logger.log("post id:", p.id, "acct id:", AppState.account.id)
+            //if (p.id == "6393abc8ecaffe36ef9785fc")
+            //    debugger
             p.likedByAccount = p.likeIds.includes(AppState.account.id)
             logger.log(p.likedByAccount)
         })
