@@ -12,10 +12,27 @@
         <PostComponent :post="p" />
 
       </div>
-      <!-- <div class="col-5">
-        Place Ads here
-      <Banner />
-  </div> -->
+
+    </section>
+    <section class="row justify-content-between" v-if="currPage">
+
+      <div class="col-2">
+        <button v-if="currPage > 1" class="btn btn-success" @click="changePage(currPage - 1)">
+          Previous
+        </button>
+
+        <button v-else class="btn btn-success" disabled>
+          Previous
+        </button>
+      </div>
+      <div class="col-1 text-end">
+        <button v-if="currPage < maxPage" class="btn btn-success" @click="changePage(currPage + 1)">
+          Next
+        </button>
+        <button v-else class="btn btn-success" disabled>
+          Next
+        </button>
+      </div>
     </section>
   </div>
 
@@ -49,14 +66,22 @@ export default {
       }
     }
 
-    // onMounted(() => {
-    //   setTimeout(() => {
-    //     getPosts()
-    //   }, 1000);
-    // })
+    onMounted(() => {
+      getPosts()
+    })
     return {
       posts: computed(() => AppState.posts),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      currPage: computed(() => AppState.page),
+      maxPage: computed(() => AppState.maxPage > 10 ? 10 : AppState.maxPage),
+      async changePage(number) {
+        try {
+          await postsService.changePage(number)
+        } catch (error) {
+          logger.log(error)
+          Pop.error(error)
+        }
+      }
     }
   },
   components: { PostComponent, CreatePost, Banner }

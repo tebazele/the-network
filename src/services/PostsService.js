@@ -7,15 +7,23 @@ class PostsService {
 
     async getPosts() {
         const res = await api.get('api/posts')
-        logger.log('got posts', res.data)
+        logger.log('got posts', res.data, res.data.page)
         AppState.posts = res.data.posts.map(p => new Post(p))
-        AppState.posts.forEach(p => {
-            // logger.log("post id:", p.id, "acct id:", AppState.account.id)
-            //if (p.id == "6393abc8ecaffe36ef9785fc")
-            //    debugger
-            p.likedByAccount = p.likeIds.includes(AppState.account.id)
-            logger.log(p.likedByAccount)
-        })
+        if (AppState.account.id) {
+            AppState.posts.forEach(p => {
+                // logger.log("post id:", p.id, "acct id:", AppState.account.id)
+                //if (p.id == "6393abc8ecaffe36ef9785fc")
+                //    debugger
+                p.likedByAccount = p.likeIds.includes(AppState.account.id)
+                logger.log(p.likedByAccount)
+            })
+
+        }
+        let pageArr = res.data.page.split(' ')
+        // logger.log(pageArr)
+        AppState.page = parseInt(pageArr[0])
+        AppState.maxPage = parseInt(pageArr[2])
+
     }
 
     async createPost(data) {
@@ -43,6 +51,14 @@ class PostsService {
         const res = api.delete('/api/posts/' + id)
         logger.log('removing post', res)
         AppState.posts = AppState.posts.filter(p => p.id != id)
+    }
+
+    async changePage(num) {
+        logger.log(num)
+        const res = await api.get('/api/posts?page=' + num)
+        AppState.posts = res.data.posts.map(p => new Post(p))
+        AppState.page = num
+
     }
 }
 
