@@ -13,6 +13,7 @@
             <div class="col-8">
                 <h6>{{ profile.name }}</h6>
                 <p class="text-secondary">{{ profile.email }}</p>
+                <p>{{ profile._id }}</p>
             </div>
         </section>
     </div>
@@ -29,16 +30,16 @@ import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { profilesService } from '../services/ProfilesService.js';
 export default {
-    props: { profile: { type: Account, required: true } },
+    props: { profile: { type: Object, required: true } },
     setup(props) {
         const router = useRouter()
         return {
             async goToProfile() {
                 try {
-                    logger.log(props.profile.id)
-                    // debugger
-                    // await profilesService.getProfileById(props.profile.name)
-                    // router.replace({ path: `/profile/${props.profile.id}` })
+                    logger.log(props.profile._id)
+                    debugger
+                    await profilesService.getProfileById(props.profile._id)
+                    router.replace({ path: `/profile/${props.profile._id}` })
                 } catch (error) {
                     logger.log(error)
                     Pop.error(error)
