@@ -15,7 +15,8 @@
             <p>{{ new Date(post.creator.createdAt).toLocaleString('en-US') || 'now' }}</p>
         </div>
         <div class="col-3 mt-5">
-            <h1 v-if="state.liked" @click="likeOrUnlike(post.id)"><i class="mdi mdi-heart text-danger selectable"></i>
+            <h1 v-if="state.liked || post.likedByAccount" @click="likeOrUnlike(post.id)"><i
+                    class="mdi mdi-heart text-danger selectable"></i>
             </h1>
             <h1 v-else @click="likeOrUnlike(post.id)"><i class="mdi mdi-heart-outline text-danger selectable"></i></h1>
             <p>This post has {{ likeCount }} like(s)!</p>
