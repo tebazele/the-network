@@ -25,6 +25,9 @@
           Previous
         </button>
       </div>
+      <div class="col-3">
+        <p>{{ currPage }}/{{ maxPage }}</p>
+      </div>
       <div class="col-1 text-end">
         <button v-if="currPage < maxPage" class="btn btn-success" @click="changePage(currPage + 1)">
           Next
