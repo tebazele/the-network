@@ -12,14 +12,18 @@
             <h6>{{ post.creator.name }} <span v-if="post.creator.graduated"><i class="mdi mdi-school"></i></span>
             </h6>
             <!-- FIXME figure out how to get how long ago a post was made -->
-            <p>{{ new Date(post.creator.createdAt).toLocaleString('en-US') || 'now' }}</p>
+            <p class="text-secondary">{{ `${Math.round((new Date().getTime() - new Date(post.createdAt).getTime()) /
+                    (1000
+                        * 60 * 60))} hours ago` || 'now'
+            }}
+            </p>
         </div>
         <div class="col-3 mt-5">
             <h1 v-if="state.liked || post.likedByAccount" @click="likeOrUnlike(post.id)"><i
                     class="mdi mdi-heart text-danger selectable"></i>
             </h1>
             <h1 v-else @click="likeOrUnlike(post.id)"><i class="mdi mdi-heart-outline text-danger selectable"></i></h1>
-            <p>This post has {{ state.likeCount }} like(s)!</p>
+            <p>Likes: {{ state.likeCount }}</p>
 
         </div>
     </section>

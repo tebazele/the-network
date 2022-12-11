@@ -12,6 +12,12 @@ class ProfilesService {
 
     }
 
+    async searchProfiles(search) {
+        const res = await api.get('/api/profiles', { params: search })
+        logger.log('searching profiles', res.data)
+        AppState.profilesResults = res.data.map(p => new Account(p))
+    }
+
 }
 
 export const profilesService = new ProfilesService()

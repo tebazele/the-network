@@ -1,6 +1,6 @@
 <template>
+    <!-- <ProfileCard :profile="profile" /> -->
     <div class="bg-white elevation-5 p-0 my-3 col-12 container-fluid">
-        <!-- FIXME put coverImg as background image or some colored background and transform profile picture down -->
         <section v-if="profile" class="d-flex bg-image ps-3 justify-content-between">
             <div class="col-4 mt-3">
                 <img :src="profile.picture" class="img-fluid rounded-circle elevation-5 profile-img" />
@@ -68,6 +68,7 @@ import Pop from '../utils/Pop.js';
 import CreatePost from '../components/CreatePost.vue';
 import PostComponent from '../components/PostComponent.vue';
 import { postsService } from '../services/PostsService.js';
+import ProfileCard from '../components/ProfileCard.vue';
 export default {
     setup() {
         const route = useRoute();
@@ -102,7 +103,7 @@ export default {
             posts: computed(() => AppState.posts)
         };
     },
-    components: { CreatePost, PostComponent }
+    components: { CreatePost, PostComponent, ProfileCard }
 };
 </script>
 

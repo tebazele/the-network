@@ -14,4 +14,6 @@ export const AppState = reactive({
 
   liked: null,
   // likeCount: 0
+  /** @type {import('./models.Account.js').Account[]} */
+  profilesResults: []
 })

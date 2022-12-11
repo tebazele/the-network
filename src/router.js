@@ -22,6 +22,11 @@ const routes = [
     name: 'Account',
     component: loadPage('AccountPage'),
     beforeEnter: authGuard
+  },
+  {
+    path: '/search_results',
+    name: 'Results',
+    component: loadPage('SearchResults')
   }
 ]
 

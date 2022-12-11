@@ -5,8 +5,12 @@
         <Login />
       </div>
       <div class="col-9 p-0 fira-sans">
-        <header>
+        <header class="pos-rel">
           <Navbar />
+          <div class="search-field">
+            <SearchBar />
+
+          </div>
         </header>
         <section class="row">
 
@@ -39,6 +43,7 @@ import Banner from './components/Banner.vue'
 import EditAccount from './components/EditAccount.vue'
 import Login from './components/Login.vue'
 import Navbar from './components/Navbar.vue'
+import SearchBar from './components/SearchBar.vue'
 
 export default {
   setup() {
@@ -46,7 +51,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, Login, EditAccount, Banner }
+  components: { Navbar, Login, EditAccount, Banner, SearchBar }
 }
 </script>
 <style lang="scss">
@@ -62,6 +67,16 @@ export default {
 
 .full-width {
   width: 100%;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.search-field {
+  position: absolute;
+  top: 13px;
+  right: 15px;
 }
 
 
