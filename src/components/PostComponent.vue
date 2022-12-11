@@ -28,7 +28,14 @@
         </div>
     </section>
     <section class="row serif-font">
-        <div class="col-11 m-3">{{ post.body }}</div>
+        <div class="col-10 m-3">{{ post.body }}</div>
+        <div v-if="account.id == post.creatorId" class="col-1" @click="removePost">
+            <h3 class="mt-3">
+
+                <i class="mdi mdi-delete-circle-outline text-danger selectable"></i>
+
+            </h3>
+        </div>
 
 
         <div v-if="post.imgUrl" class="text-center p-0">
@@ -87,6 +94,17 @@ export default {
                         state.likeCount--
                     }
 
+                } catch (error) {
+                    logger.log(error)
+                    Pop.error(error)
+                }
+            },
+            async removePost() {
+                try {
+                    if (await Pop.confirm('Are you sure you want to delete this post?')) {
+
+                        await postsService.removePost(props.post.id)
+                    }
                 } catch (error) {
                     logger.log(error)
                     Pop.error(error)

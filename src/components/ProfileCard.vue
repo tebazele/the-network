@@ -13,7 +13,7 @@
             <div class="col-8">
                 <h6>{{ profile.name }}</h6>
                 <p class="text-secondary">{{ profile.email }}</p>
-                <p>{{ profile._id }}</p>
+                <!-- <p>{{ profile._id }}</p> -->
             </div>
         </section>
     </div>

@@ -38,13 +38,12 @@ class PostsService {
 
     }
 
-    // checkLikes(id) {
-    //     let foundPost = AppState.posts.find(p => p.id == id)
-    //     let likeIsThere = foundPost.likeIds.includes(AppState.account.id)
-    //     AppState.liked = likeIsThere
-    //     AppState.likeCount = foundPost.likeIds.length
-    //     logger.log(AppState.liked, AppState.likeCount)
-    // }
+    async removePost(id) {
+        // logger.log('removing post', id)
+        const res = api.delete('/api/posts/' + id)
+        logger.log('removing post', res)
+        AppState.posts = AppState.posts.filter(p => p.id != id)
+    }
 }
 
 export const postsService = new PostsService()
