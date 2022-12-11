@@ -29,6 +29,7 @@ export default {
                 try {
                     await profilesService.searchProfiles(search)
                     router.push({ name: 'Results' })
+                    search.query = ''
                 } catch (error) {
                     logger.log(error)
                     Pop.error(error)
