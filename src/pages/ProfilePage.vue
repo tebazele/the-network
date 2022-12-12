@@ -7,15 +7,20 @@
 
             </div>
 
-            <div class="col-3 d-flex align-items-end text-shadow">
+            <div class="col-3 d-flex align-items-end text-shadow ">
 
-                <h1 v-if="profile.github"><i class="mdi mdi-github"></i><a target="_blank" :href="profile.github"></a>
-                </h1>
-                <h1 v-if="profile.linkedin"><i class="mdi mdi-linkedin"></i><a target="_blank"
-                        :href="profile.linkedin"></a>
-                </h1>
-                <h1 v-if="profile.resume"><i class="mdi mdi-file-certificate"></i><a target="_blank"
-                        :href="profile.resume"></a></h1>
+                <a v-if="profile.github" :href="profile.github" target="_blank"
+                    class="a-tag elevation-2 mb-1 pt-1 px-1">
+                    <h1 class="mdi mdi-github"></h1>
+                </a>
+                <a v-if="profile.linkedin" :href="profile.linkedin" target="_blank"
+                    class="a-tag elevation-2 mb-1 pt-1 px-1">
+                    <h1 class="mdi mdi-linkedin"></h1>
+                </a>
+                <a v-if="profile.resume" target="_blank" :href="profile.resume"
+                    class="a-tag elevation-2 mb-1 pt-1 px-1">
+                    <h1 class="mdi mdi-file-certificate"></h1>
+                </a>
             </div>
         </section>
         <section class="row">
@@ -45,18 +50,18 @@
 
     </div>
 
-    <div class="bg-white elevation-5 ms-1 my-2 me-1">
-
-        <section class="row">
-            <div class="col-12" v-for="p in posts">
-
-                <PostComponent :post="p" />
 
 
-            </div>
+    <section class="row justify-content-center">
+        <div class="col-11 bg-white elevation-5  ms-1 my-2 me-1" v-for="p in posts">
 
-        </section>
-    </div>
+            <PostComponent :post="p" />
+
+
+        </div>
+
+    </section>
+
     <section class="row justify-content-between">
         <div class="col-2">
             <button v-if="currPage > 1" class="btn btn-success" @click="changePage(currPage - 1)">
@@ -83,7 +88,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect } from 'vue';
+import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { profilesService } from '../services/ProfilesService.js'
 import { logger } from '../utils/Logger.js';
@@ -95,9 +100,13 @@ import ProfileCard from '../components/ProfileCard.vue';
 export default {
     setup() {
         const route = useRoute();
+        const myAccount = ref({})
         watchEffect(() => {
             getProfileById()
             getPostsByProfileId()
+            if (AppState.account.id) {
+                myAccount.value = { ...AppState.account }
+            }
         })
 
         async function getProfileById() {
@@ -165,5 +174,9 @@ export default {
 
 .text-shadow {
     text-shadow: 1px 1px rgb(198, 187, 187);
+}
+
+.a-tag {
+    color: rgb(59, 54, 54);
 }
 </style>

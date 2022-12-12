@@ -69,6 +69,7 @@ export default {
                 try {
                     await accountService.editAccount(myAccount.value)
                     Pop.toast('Account edited!', 'success')
+
                 } catch (error) {
                     logger.log(error)
                     Pop.error(error)

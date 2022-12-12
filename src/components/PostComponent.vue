@@ -28,7 +28,7 @@
 
         </div>
     </section>
-    <section class="row serif-font">
+    <section class="row serif-font p-0">
         <div class="col-10 m-3">{{ post.body }}</div>
         <div v-if="account.id == post.creatorId" class="col-1" @click="removePost">
             <h3 class="mt-3">
@@ -40,7 +40,7 @@
 
 
         <div v-if="post.imgUrl" class="text-center p-0">
-            <img :src="post.imgUrl" class="img-fluid post-img ">
+            <img :src="post.imgUrl" class="img-fluid post-img">
         </div>
 
     </section>
@@ -57,7 +57,6 @@ import { Post } from '../models/Post.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { postsService } from '../services/PostsService.js';
-import { accountService } from '../services/AccountService.js';
 
 export default {
     props: {
