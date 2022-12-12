@@ -29,7 +29,21 @@ class PostsService {
     async createPost(data) {
         const res = await api.post('api/posts', data)
         logger.log('new post', res.data)
-        AppState.posts.unshift(new Post(res.data))
+        let newPost = new Post(res.data)
+        if (AppState.account.id) {
+            AppState.posts.forEach(p => {
+                // logger.log("post id:", p.id, "acct id:", AppState.account.id)
+                //if (p.id == "6393abc8ecaffe36ef9785fc")
+                //    debugger
+                p.likedByAccount = p.likeIds.includes(AppState.account.id)
+                p.likeCount = p.likeIds.length
+                // logger.log(p.likedByAccount)
+            })
+
+        }
+
+        AppState.posts.unshift(newPost)
+
         // this.getPosts()
     }
 

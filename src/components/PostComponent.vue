@@ -23,7 +23,7 @@
                     class="mdi mdi-heart text-danger selectable"></i>
             </h1>
             <h1 v-else @click="likeOrUnlike(post.id)"><i class="mdi mdi-heart-outline text-danger selectable"></i></h1>
-            <p>Likes: {{ state.likeCount }}</p>
+            <p>Likes: {{ post.likeCount }}</p>
 
 
         </div>
@@ -111,6 +111,7 @@ export default {
 
         }
     }
+
 };
 </script>
 
