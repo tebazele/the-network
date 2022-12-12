@@ -30,6 +30,7 @@ class PostsService {
         const res = await api.post('api/posts', data)
         logger.log('new post', res.data)
         AppState.posts.unshift(new Post(res.data))
+        // this.getPosts()
     }
 
     async getPostsByProfileId(id) {

@@ -25,6 +25,7 @@
             <h1 v-else @click="likeOrUnlike(post.id)"><i class="mdi mdi-heart-outline text-danger selectable"></i></h1>
             <p>Likes: {{ state.likeCount }}</p>
 
+
         </div>
     </section>
     <section class="row serif-font">
@@ -59,23 +60,21 @@ import { postsService } from '../services/PostsService.js';
 import { accountService } from '../services/AccountService.js';
 
 export default {
-    props: { post: { type: Post, required: true } },
+    props: {
+        post: { type: Post, required: true }
+    },
     setup(props) {
         const state = reactive({
             liked: false,
-            likeCount: props.post.likeIds.length
+            likeCount: props.post.likeCount
         })
-        // watchEffect(() => {
-        //     if (AppState.account.id) {
-        //         checkLikes()
 
-        //     }
+        // watchEffect(() => {
+
         // })
         // function checkLikes() {
         //     postsService.checkLikes(props.post.id)
         // }
-
-
 
 
 
@@ -110,6 +109,7 @@ export default {
                     Pop.error(error)
                 }
             }
+
         }
     }
 };

@@ -13,7 +13,7 @@ export const AppState = reactive({
   banners: [],
 
   liked: null,
-  // likeCount: 0
+  likeCount: 0,
   /** @type {import('./models.Account.js').Account[]} */
   profilesResults: [],
   page: 1,

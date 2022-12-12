@@ -36,7 +36,7 @@
         </section>
     </div>
 
-    <div class="bg-white elevation-5 my-2 ">
+    <div v-if="profile.id == account.id" class="bg-white elevation-5 my-2">
         <section class="row">
             <div class="col-12">
                 <CreatePost />
@@ -45,16 +45,18 @@
 
     </div>
 
+    <div class="bg-white elevation-5 ms-1 my-2 me-1">
 
-    <section class="row">
-        <div class="col-12 bg-white elevation-5 ms-2 my-2 me-3" v-for="p in posts">
+        <section class="row">
+            <div class="col-12" v-for="p in posts">
 
-            <PostComponent :post="p" />
+                <PostComponent :post="p" />
 
 
-        </div>
+            </div>
 
-    </section>
+        </section>
+    </div>
     <section class="row justify-content-between">
         <div class="col-2">
             <button v-if="currPage > 1" class="btn btn-success" @click="changePage(currPage - 1)">
@@ -93,7 +95,10 @@ import ProfileCard from '../components/ProfileCard.vue';
 export default {
     setup() {
         const route = useRoute();
-        watchEffect(() => getProfileById())
+        watchEffect(() => {
+            getProfileById()
+            getPostsByProfileId()
+        })
 
         async function getProfileById() {
             try {
@@ -113,10 +118,10 @@ export default {
                 Pop.error(error)
             }
         }
-        onMounted(() => {
-            // getProfileById();
-            getPostsByProfileId()
-        });
+        // onMounted(() => {
+        //     getProfileById();
+        //     getPostsByProfileId()
+        // });
         return {
             coverImg: computed(() => `url(${AppState.activeProfile.coverImg})`),
             profile: computed(() => AppState.activeProfile),
@@ -144,7 +149,7 @@ export default {
     background-image: v-bind(coverImg);
     height: 30vh;
     width: 100%;
-    background-position: bottom;
+    background-position: center;
     background-size: cover;
 }
 

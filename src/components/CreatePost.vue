@@ -38,6 +38,7 @@ export default {
                 try {
                     await postsService.createPost(state.newPost)
                     state.newPost = {}
+
                 } catch (error) {
                     logger.log(error)
                     Pop.error(error)
