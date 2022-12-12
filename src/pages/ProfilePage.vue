@@ -53,7 +53,7 @@
 
 
     <section class="row justify-content-center">
-        <div class="col-11 bg-white elevation-5  ms-1 my-2 me-1" v-for="p in posts">
+        <div class="col-12 bg-white elevation-5  ms-1 my-2 me-1" v-for="p in posts">
 
             <PostComponent :post="p" />
 

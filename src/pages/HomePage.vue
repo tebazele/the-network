@@ -76,7 +76,7 @@ export default {
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
       currPage: computed(() => AppState.page),
-      maxPage: computed(() => AppState.maxPage > 10 ? 10 : AppState.maxPage),
+      maxPage: computed(() => AppState.maxPage),
       async changePage(number) {
         try {
           await postsService.changePage(number)
