@@ -19,11 +19,12 @@
             </p>
         </div>
         <div class="col-3 mt-5">
-            <h1 v-if="state.liked || post.likedByAccount" @click="likeOrUnlike(post.id)"><i
+            <h1 v-if="post.liked || post.likedByAccount" @click="likeOrUnlike(post.id)"><i
                     class="mdi mdi-heart text-danger selectable"></i>
             </h1>
             <h1 v-else @click="likeOrUnlike(post.id)"><i class="mdi mdi-heart-outline text-danger selectable"></i></h1>
             <p>Likes: {{ post.likeCount }}</p>
+            <!-- <p>Likes: {{ state.likeCount }}</p> -->
 
 
         </div>
@@ -80,16 +81,22 @@ export default {
         return {
             state,
             account: computed(() => AppState.account),
+            // likeCount: computed(() => props.post.likeCount),
             async likeOrUnlike(id) {
                 try {
                     logger.log(id)
                     await postsService.likeOrUnlike(id)
                     logger.log(props.post.likeIds)
-                    state.liked = !state.liked
-                    if (state.liked) {
-                        state.likeCount++
+                    props.post.liked = !props.post.liked
+                    // state.liked = !state.liked
+                    if (props.post.liked) {
+                        props.post.likeCount++
+                        // this.likeCount++
+                        // state.likeCount++
                     } else {
-                        state.likeCount--
+                        props.post.likeCount--
+                        // this.likeCount--
+                        // state.likeCount--
                     }
 
                 } catch (error) {
